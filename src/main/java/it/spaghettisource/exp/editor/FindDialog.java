@@ -362,7 +362,7 @@ public class FindDialog extends JDialog {
 				editor.setSelection(xStart, xStart+replacement.length(),searchUp);
 				JOptionPane.showMessageDialog(editor,"replacement have been done", "Info",JOptionPane.INFORMATION_MESSAGE);
 			}else {
-				findNext(false, false);
+				findNext(false, true);
 			}
 			
 		}			  
