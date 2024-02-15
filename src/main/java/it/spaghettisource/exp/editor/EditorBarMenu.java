@@ -108,8 +108,7 @@ public class EditorBarMenu extends JMenuBar{
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,KeyEvent.CTRL_MASK));
         menu.add(item);
         
-        item = new JMenuItem("Find");
-        item.setIcon(icon);
+        item = new JMenuItem("Replace");
         item.setActionCommand(EditorActionController.REPLACE);
         item.addActionListener(editorActionController);
         menu.add(item);

@@ -1,16 +1,32 @@
 package it.spaghettisource.exp.editor;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
-import javax.swing.text.*;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.Element;
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
 import javax.swing.text.rtf.RTFEditorKit;
 import javax.swing.undo.UndoManager;
-import java.awt.*;
-import java.io.*;
-import java.util.List;
+
 public class Editor extends JPanel {
 
 	protected JFrame frame;
@@ -20,7 +36,6 @@ public class Editor extends JPanel {
 	protected RTFEditorKit editorKit;
 	protected EditorBarTool toolBar;
 	protected UndoManager undoManager;
-	protected FindDialog findDialog;
 
 	protected StyleManager styleManger;
 

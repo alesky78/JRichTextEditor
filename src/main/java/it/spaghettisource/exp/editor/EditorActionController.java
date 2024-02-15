@@ -148,7 +148,6 @@ public class EditorActionController implements ActionListener {
                 
             }else if(command.equals(FIND)) {
 				FindDialog dialog = new FindDialog(editor, 0);
-            	dialog.setModal(true);
 				dialog.setSelectedIndex(0);
 				Dimension d1 = dialog.getSize();
 				Dimension d2 = editor.getSize();
@@ -156,11 +155,9 @@ public class EditorActionController implements ActionListener {
 				int y = Math.max((d2.height-d1.height)/2, 0);
 				dialog.setBounds(x + editor.getX(), y + editor.getY(), d1.width, d1.height);
 				dialog.setVisible(true);
-				
             	
             }else if(command.equals(REPLACE)) {
             	FindDialog dialog = new FindDialog(editor, 0);
-            	dialog.setModal(true);
 				dialog.setSelectedIndex(1);
 				Dimension d1 = dialog.getSize();
 				Dimension d2 = editor.getSize();
@@ -169,7 +166,6 @@ public class EditorActionController implements ActionListener {
 				dialog.setBounds(x + editor.getX(), y + editor.getY(), d1.width, d1.height);
 				dialog.setVisible(true);
 				
-            	
             }
 
 
