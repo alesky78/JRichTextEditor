@@ -97,6 +97,23 @@ public class EditorBarMenu extends JMenuBar{
         item.addActionListener(editorActionController);
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y,KeyEvent.CTRL_MASK));
         menu.add(item);
+        
+        menu.addSeparator();
+        
+        item = new JMenuItem("Find");
+        icon = new ImageIcon(this.getClass().getResource("/icons/find-replace.png"));
+        item.setIcon(icon);
+        item.setActionCommand(EditorActionController.FIND);
+        item.addActionListener(editorActionController);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,KeyEvent.CTRL_MASK));
+        menu.add(item);
+        
+        item = new JMenuItem("Find");
+        item.setIcon(icon);
+        item.setActionCommand(EditorActionController.REPLACE);
+        item.addActionListener(editorActionController);
+        menu.add(item);
+        
 
     }
 }

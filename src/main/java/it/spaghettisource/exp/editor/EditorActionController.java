@@ -29,6 +29,8 @@ public class EditorActionController implements ActionListener {
     public static final String STYLE_FONT_BOLD = "STYLE_FONT_BOLD";
     public static final String STYLE_FONT_ITALIC = "STYLE_FONT_ITALIC";
     public static final String STYLE_FONT_SIZE = "STYLE_FONT_SIZE";
+	public static final String FIND = "FIND";
+	public static final String REPLACE = "REPLACE";
 
 
     private final Component parent;
@@ -134,12 +136,40 @@ public class EditorActionController implements ActionListener {
 
             }else if(command.equals(ALIGN_JUSTIFY)) {
                 editor.setAlignmentJustify();
+                
             }else if(command.equals(ALIGN_LEFT)) {
                 editor.setAlignmentLeft();
+                
             }else if(command.equals(ALIGN_CENTER)) {
                 editor.setAlignmentCenter();
+                
             }else if(command.equals(ALIGN_RIGHT)) {
                 editor.setAlignmentRight();
+                
+            }else if(command.equals(FIND)) {
+				FindDialog dialog = new FindDialog(editor, 0);
+            	dialog.setModal(true);
+				dialog.setSelectedIndex(0);
+				Dimension d1 = dialog.getSize();
+				Dimension d2 = editor.getSize();
+				int x = Math.max((d2.width-d1.width)/2, 0);
+				int y = Math.max((d2.height-d1.height)/2, 0);
+				dialog.setBounds(x + editor.getX(), y + editor.getY(), d1.width, d1.height);
+				dialog.setVisible(true);
+				
+            	
+            }else if(command.equals(REPLACE)) {
+            	FindDialog dialog = new FindDialog(editor, 0);
+            	dialog.setModal(true);
+				dialog.setSelectedIndex(1);
+				Dimension d1 = dialog.getSize();
+				Dimension d2 = editor.getSize();
+				int x = Math.max((d2.width-d1.width)/2, 0);
+				int y = Math.max((d2.height-d1.height)/2, 0);
+				dialog.setBounds(x + editor.getX(), y + editor.getY(), d1.width, d1.height);
+				dialog.setVisible(true);
+				
+            	
             }
 
 
