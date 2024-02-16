@@ -1,6 +1,8 @@
 package it.spaghettisource.exp.editor;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -36,6 +38,7 @@ public class Editor extends JPanel {
 	protected RTFEditorKit editorKit;
 	protected EditorBarTool toolBar;
 	protected UndoManager undoManager;
+	protected FindDialog findDialog;
 
 	protected StyleManager styleManger;
 
@@ -72,6 +75,8 @@ public class Editor extends JPanel {
 		toolBar = new EditorBarTool(frame,this);
 		add(editorSCrScrollPane, BorderLayout.CENTER);
 		add(toolBar, BorderLayout.NORTH);
+		
+		findDialog = new FindDialog(this);
 	}
 
 	public JTextPane getTextPane() {
@@ -208,6 +213,18 @@ public class Editor extends JPanel {
 		}
 		textPane.grabFocus();
 	}
+	
+	public void findText() {
+		findDialog.setSelectedIndex(0);
+		findDialog.setLocationRelativeTo(this);
+		findDialog.setVisible(true);
+	}	
+	
+	public void replaceText() {
+		findDialog.setSelectedIndex(1);
+		findDialog.setLocationRelativeTo(this);
+		findDialog.setVisible(true);
+	}	
 
 	private void setAttribute(AttributeSet attr, boolean paragraphAttribute, boolean replaceAttribute) {
 
@@ -246,6 +263,10 @@ public class Editor extends JPanel {
 			undoManager.addEdit(e.getEdit());
 		}
 	}
+
+
+
+
 
 }
 

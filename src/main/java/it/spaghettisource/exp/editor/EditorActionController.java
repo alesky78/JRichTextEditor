@@ -1,16 +1,21 @@
 package it.spaghettisource.exp.editor;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+import javax.swing.AbstractAction;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JToggleButton;
 
 /**
  * This class is the controller of the application, it manage the action of the user
  * and delegate the operation to the model
  */
-public class EditorActionController implements ActionListener {
-
+public class EditorActionController extends AbstractAction{
 
     public static final String COPY = "COPY";
     public static final String CUT = "CUT";
@@ -147,24 +152,10 @@ public class EditorActionController implements ActionListener {
                 editor.setAlignmentRight();
                 
             }else if(command.equals(FIND)) {
-				FindDialog dialog = new FindDialog(editor, 0);
-				dialog.setSelectedIndex(0);
-				Dimension d1 = dialog.getSize();
-				Dimension d2 = editor.getSize();
-				int x = Math.max((d2.width-d1.width)/2, 0);
-				int y = Math.max((d2.height-d1.height)/2, 0);
-				dialog.setBounds(x + editor.getX(), y + editor.getY(), d1.width, d1.height);
-				dialog.setVisible(true);
-            	
+                editor.findText();
+           	
             }else if(command.equals(REPLACE)) {
-            	FindDialog dialog = new FindDialog(editor, 0);
-				dialog.setSelectedIndex(1);
-				Dimension d1 = dialog.getSize();
-				Dimension d2 = editor.getSize();
-				int x = Math.max((d2.width-d1.width)/2, 0);
-				int y = Math.max((d2.height-d1.height)/2, 0);
-				dialog.setBounds(x + editor.getX(), y + editor.getY(), d1.width, d1.height);
-				dialog.setVisible(true);
+                editor.replaceText();
 				
             }
 

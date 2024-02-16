@@ -46,7 +46,13 @@ public class FindDialog extends JDialog {
 	private boolean searchUp = false;
 	private String  searchData;
 
-	public FindDialog(Editor owner, int index) {
+	/**
+	 * this method create the dialog, but don't make it visible, 
+	 * call instead setSelectedIndex() after the build of the object
+	 * 
+	 * @param owner
+	 */
+	public FindDialog(Editor owner) {
 		super();
 		editor = owner;
 		tabPanel = new JTabbedPane();
@@ -159,7 +165,6 @@ public class FindDialog extends JDialog {
 		p01.setPreferredSize(p02.getPreferredSize());
 		tabPanel.addTab("Replace", replacePanel);
 
-		tabPanel.setSelectedIndex(index);
 		getContentPane().add(tabPanel, BorderLayout.CENTER);
 
 
@@ -312,7 +317,6 @@ public class FindDialog extends JDialog {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			setVisible(false);
-			dispose();
 		}	
 	}
 
@@ -345,22 +349,21 @@ public class FindDialog extends JDialog {
 			String key = "";
 			try { 
 				key = docFind.getText(0, docFind.getLength()); 
-			}catch (BadLocationException ex) {}
+			}catch (BadLocationException ex) { return;}
 			
 			String replacement = "";
 			try {
 				replacement = docReplace.getText(0,docReplace.getLength());
-			} catch (BadLocationException ex) {}
+			} catch (BadLocationException ex) { return;}
 			
 			String selected = "";
 			try {
 				selected = editor.getDocument().getText(xStart, xFinish-xStart);
-			} catch (BadLocationException e1) {}
+			} catch (BadLocationException e1) { return;}
 			
 			if(selected.equals(key)) {
 				monitor.replaceSelection(replacement);
 				editor.setSelection(xStart, xStart+replacement.length(),searchUp);
-				JOptionPane.showMessageDialog(editor,"replacement have been done", "Info",JOptionPane.INFORMATION_MESSAGE);
 			}else {
 				findNext(false, true);
 			}
