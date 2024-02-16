@@ -1,8 +1,6 @@
 package it.spaghettisource.exp.editor;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -218,6 +216,7 @@ public class Editor extends JPanel {
 		findDialog.setSelectedIndex(0);
 		findDialog.setLocationRelativeTo(this);
 		findDialog.setVisible(true);
+		
 	}	
 	
 	public void replaceText() {

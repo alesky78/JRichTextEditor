@@ -2,6 +2,8 @@ package it.spaghettisource.exp.editor;
 
 import java.awt.event.KeyEvent;
 
+import javax.swing.Action;
+import javax.swing.ActionMap;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
@@ -9,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
@@ -43,12 +46,14 @@ public class EditorBarTool extends JToolBar {
 	private void initializeToolBar() {
 		JButton button;
 		Icon icon;
+		InputMap inputMap;
+		ActionMap actionMap;
 
 		icon = new ImageIcon(this.getClass().getResource("/icons/action_new_document.png"));
 		button = new JButton(icon);
 		button.setToolTipText("New document");
 		button.setActionCommand(EditorActionController.NEW_DOCUMENT);
-		button.addActionListener(editorActionController);
+		button.addActionListener(editorActionController);		
 		add(button);
 
 		icon = new ImageIcon(this.getClass().getResource("/icons/action_open.png"));
@@ -104,6 +109,10 @@ public class EditorBarTool extends JToolBar {
 		button.setToolTipText("Copy");
 		button.setActionCommand(EditorActionController.COPY);
 		button.addActionListener(editorActionController);
+		inputMap = button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		actionMap = button.getActionMap();
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_C,KeyEvent.CTRL_MASK), EditorActionController.COPY);
+		actionMap.put(EditorActionController.COPY, editorActionController);			
 		add(button);
 
 		icon = new ImageIcon(this.getClass().getResource("/icons/cut.png"));
@@ -111,6 +120,10 @@ public class EditorBarTool extends JToolBar {
 		button.setToolTipText("Cut");
 		button.setActionCommand(EditorActionController.CUT);
 		button.addActionListener(editorActionController);
+		inputMap = button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		actionMap = button.getActionMap();
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_X,KeyEvent.CTRL_MASK), EditorActionController.CUT);
+		actionMap.put(EditorActionController.CUT, editorActionController);			
 		add(button);
 
 		icon = new ImageIcon(this.getClass().getResource("/icons/paste.png"));
@@ -118,6 +131,10 @@ public class EditorBarTool extends JToolBar {
 		button.setToolTipText("Paste");
 		button.setActionCommand(EditorActionController.PASTE);
 		button.addActionListener(editorActionController);
+		inputMap = button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		actionMap = button.getActionMap();
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_V,KeyEvent.CTRL_MASK), EditorActionController.PASTE);
+		actionMap.put(EditorActionController.PASTE, editorActionController);			
 		add(button);
 
 		addSeparator();
@@ -127,6 +144,10 @@ public class EditorBarTool extends JToolBar {
 		button.setToolTipText("Undo");
 		button.setActionCommand(EditorActionController.UNDO);
 		button.addActionListener(editorActionController);
+		inputMap = button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		actionMap = button.getActionMap();
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z,KeyEvent.CTRL_MASK), EditorActionController.UNDO);
+		actionMap.put(EditorActionController.UNDO, editorActionController);			
 		add(button);
 
 		icon = new ImageIcon(this.getClass().getResource("/icons/redo.png"));
@@ -134,6 +155,10 @@ public class EditorBarTool extends JToolBar {
 		button.setToolTipText("Redo");
 		button.setActionCommand(EditorActionController.REDO);
 		button.addActionListener(editorActionController);
+		inputMap = button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		actionMap = button.getActionMap();
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y,KeyEvent.CTRL_MASK), EditorActionController.REDO);
+		actionMap.put(EditorActionController.REDO, editorActionController);			
 		add(button);
 
 		addSeparator();
@@ -173,8 +198,12 @@ public class EditorBarTool extends JToolBar {
 		button.setToolTipText("Trova");
 		button.setActionCommand(EditorActionController.FIND);
 		button.addActionListener(editorActionController);
-		add(button);
-
+		inputMap = button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		actionMap = button.getActionMap();
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F,KeyEvent.CTRL_MASK), EditorActionController.FIND);
+		actionMap.put(EditorActionController.FIND, editorActionController);			
+		add(button);		
+			
 	}
 
 	public void updateToolBar(CaretEvent e) {
