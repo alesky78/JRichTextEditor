@@ -37,6 +37,7 @@ public class Editor extends JPanel {
 	protected EditorBarTool toolBar;
 	protected UndoManager undoManager;
 	protected FindDialog findDialog;
+	protected OrthoManager orthoManager;
 
 	protected StyleManager styleManger;
 
@@ -64,17 +65,23 @@ public class Editor extends JPanel {
 		//create the undo manager
 		undoManager = new UndoManager();
 
-		//add the listenerS
+		//add the listener
 		textPane.addCaretListener(new CaretEventListener());
 		document.addUndoableEditListener(new UndoableEditEventListener());
 
-		//create the UI components
+		//create the UI
 		JScrollPane editorSCrScrollPane = new JScrollPane(textPane);
 		toolBar = new EditorBarTool(frame,this);
 		add(editorSCrScrollPane, BorderLayout.CENTER);
 		add(toolBar, BorderLayout.NORTH);
-		
+
+		//Initialize other components
 		findDialog = new FindDialog(this);
+		
+		OrthoManager.init();
+		
+		orthoManager = new OrthoManager(this);
+		orthoManager.registerEditor();
 	}
 
 	public JTextPane getTextPane() {
@@ -223,7 +230,11 @@ public class Editor extends JPanel {
 		findDialog.setSelectedIndex(1);
 		findDialog.setLocationRelativeTo(this);
 		findDialog.setVisible(true);
-	}	
+	}
+	
+	public void checkSpelling() {
+		orthoManager.showDialog();
+	}
 
 	private void setAttribute(AttributeSet attr, boolean paragraphAttribute, boolean replaceAttribute) {
 
@@ -262,8 +273,6 @@ public class Editor extends JPanel {
 			undoManager.addEdit(e.getEdit());
 		}
 	}
-
-
 
 
 

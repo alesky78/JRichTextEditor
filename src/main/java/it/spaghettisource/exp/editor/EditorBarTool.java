@@ -202,15 +202,26 @@ public class EditorBarTool extends JToolBar {
 		actionMap = button.getActionMap();
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F,KeyEvent.CTRL_MASK), EditorActionController.FIND);
 		actionMap.put(EditorActionController.FIND, editorActionController);			
-		add(button);		
+		add(button);	
+		
+		addSeparator();
+
+		icon = new ImageIcon(this.getClass().getResource("/icons/spell-check.png"));
+		button = new JButton(icon);
+		button.setToolTipText("Correggi");
+		button.setActionCommand(EditorActionController.CHECK_SPELLING);
+		button.addActionListener(editorActionController);			
+		add(button);	
 			
 	}
 
 	public void updateToolBar(CaretEvent e) {
+		
+		editorActionController.disableActions();
+		
 		int offset = e.getDot();
 		AttributeSet set = editor.findAttributeSet(offset);
-		editorActionController.disableActions();
-
+		
 		styleBoldButton.setSelected(StyleConstants.isBold(set));
 		styleItalicButton.setSelected(StyleConstants.isItalic(set));
 		fontSizeComboBox.setSelectedItem(String.valueOf(StyleConstants.getFontSize(set)));

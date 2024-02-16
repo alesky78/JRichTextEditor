@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 
+import io.github.geniot.jortho.SpellChecker;
+
 /**
  * This class is the controller of the application, it manage the action of the user
  * and delegate the operation to the model
@@ -38,6 +40,7 @@ public class EditorActionController extends AbstractAction{
     public static final String STYLE_FONT_SIZE = "STYLE_FONT_SIZE";
 	public static final String FIND = "FIND";
 	public static final String REPLACE = "REPLACE";
+	public static final String CHECK_SPELLING = "CHECK_SPELLING";
 
 
     private final Component parent;
@@ -184,6 +187,8 @@ public class EditorActionController extends AbstractAction{
             }else if(command.equals(REPLACE)) {
                 editor.replaceText();
 				
+            }else if(command.equals(CHECK_SPELLING)) {
+            	 editor.checkSpelling();
             }
 
 
