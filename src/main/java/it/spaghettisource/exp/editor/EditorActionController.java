@@ -76,11 +76,13 @@ public class EditorActionController extends AbstractAction{
         rtfFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         rtfFileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
             public boolean accept(java.io.File f) {
-                return f.getName().toLowerCase().endsWith(".rtf") || f.isDirectory();
+            	
+        		//TODO - log file extesion
+                return f.getName().toLowerCase().endsWith(".txt") || f.isDirectory();
             }
 
             public String getDescription() {
-                return "RTF files";
+                return "txt files";
             }
         });
     }

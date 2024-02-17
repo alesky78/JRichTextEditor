@@ -40,6 +40,7 @@ public class Editor extends JPanel {
 	protected UndoManager undoManager;
 	protected FindDialog findDialog;
 	protected OrthoManager orthoManager;
+	protected UndoableEditEventListener undoableEditEventListener;
 
 	protected StyleManager styleManger;
 
@@ -60,18 +61,17 @@ public class Editor extends JPanel {
 		styleContext = new StyleContext();
 		document = new DefaultStyledDocument(styleContext);
 		textPane = new JTextPane(document);
-
+		textPane.addCaretListener(new CaretEventListener());
+		
 		//register the styles
 		styleManger= new StyleManager();
 		styleManger.registerStyles(document);
 
 		//create the undo manager
 		undoManager = new UndoManager();
-
-		//add the listener
-		textPane.addCaretListener(new CaretEventListener());
-		document.addUndoableEditListener(new UndoableEditEventListener());
-
+		undoableEditEventListener = new UndoableEditEventListener();
+		document.addUndoableEditListener(undoableEditEventListener);
+		
 		//create the UI
 		JScrollPane editorSCrScrollPane = new JScrollPane(textPane);
 		toolBar = new EditorBarTool(frame,this);
@@ -95,6 +95,18 @@ public class Editor extends JPanel {
 	public DefaultStyledDocument getDocument() {
 		return document;
 	}
+	
+	private void replaceTextPaneDocument() {
+		//clean old model
+		document.removeUndoableEditListener(undoableEditEventListener);
+		undoManager.discardAllEdits();
+
+		//create a new model
+		document = new DefaultStyledDocument(styleContext);
+		document.addUndoableEditListener(undoableEditEventListener);
+		styleManger.registerStyles(document);
+		textPane.setDocument(document);
+	}	
 
 	public String[] findManagerStylesNames() {
 		return styleManger.getStyleNames().toArray(new String[0]);
@@ -109,22 +121,17 @@ public class Editor extends JPanel {
 	}	
 
 	public void createNewDocument() {
-		document = new DefaultStyledDocument(styleContext);
-		styleManger.registerStyles(document);
-
-		textPane.setDocument(document);
+		replaceTextPaneDocument();
 	}
 
 	public void loadFromFile(File selectedFile) throws Exception{
-		try(InputStream in = new FileInputStream(selectedFile)){
-			document = new DefaultStyledDocument(styleContext);
-			styleManger.registerStyles(document);
-
+		replaceTextPaneDocument();			
+		try(InputStream in = new FileInputStream(selectedFile)){	
 			editorKit.read(in, document, 0);
-			textPane.setDocument(document);
 		}
 	}
 
+	
 	public void saveToFile(File selectedFile)  throws Exception{
 		try(OutputStream out = new FileOutputStream(selectedFile)){
 			editorKit.write(out, document, 0, document.getLength());

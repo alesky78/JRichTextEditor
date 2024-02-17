@@ -48,7 +48,8 @@ public class XmlGenerator {
 		
 		Element root = document.getDefaultRootElement();
 	    int max = root.getElementCount();
-	    
+
+		//TODO - log to remove
 		((DefaultStyledDocument)document).dump(System.out);
 	    
 		log.debug("Parse root");
@@ -63,7 +64,8 @@ public class XmlGenerator {
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			//marshaller.marshal(xmlDocument, to);
+			marshaller.marshal(xmlDocument, to);
+			//TODO - log to remove
 			marshaller.marshal(xmlDocument, System.out);
 		} catch (JAXBException ex) {
 			throw new IOException(ex);

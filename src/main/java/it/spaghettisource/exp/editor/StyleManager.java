@@ -24,7 +24,7 @@ public class StyleManager {
         StyleConstants.setItalic(attr, false);
         StyleConstants.setFontSize(attr,12);
         defaultStyle = registerStyle(document, "deafult", attr);
-        document.setLogicalStyle(0, defaultStyle);
+        //document.setLogicalStyle(0, defaultStyle);
         
         //title style
         attr = new SimpleAttributeSet();
