@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+	targetNamespace="http://editorKit.xml.spaghettisource.it"
+	attributeFormDefault="unqualified" elementFormDefault="qualified"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ref="http://editorKit.xml.spaghettisource.it">
+
+	<!-- ROOT -->
+	<xs:element name="xmlDocument">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ref:Part" minOccurs="1" maxOccurs="unbounded" />				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Part">
+		<xs:complexType>		
+			<xs:sequence>
+				<xs:element ref="ref:PartStyle" minOccurs="1"  maxOccurs="1" />			
+				<xs:element ref="ref:Content" minOccurs="1"  maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="Alignment" type="xs:string" use="required" />		
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="PartStyle">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required" />
+			<xs:attribute name="bold" type="xs:boolean" use="required" />
+			<xs:attribute name="italic" type="xs:boolean" use="required" />			
+			<xs:attribute name="size" type="xs:int" use="required" />			
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="Content">
+		<xs:complexType>
+			<xs:simpleContent>
+      			<xs:extension base="xs:string">
+	        	<xs:attribute name="bold" type="xs:boolean" use="required" />
+				<xs:attribute name="italic" type="xs:boolean" use="required" />			
+				<xs:attribute name="size" type="xs:int" use="required" />
+      			</xs:extension>
+    		</xs:simpleContent>    		
+		</xs:complexType>
+	</xs:element>	
+	
+
+</xs:schema>

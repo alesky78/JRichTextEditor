@@ -16,28 +16,32 @@ public class StyleManager {
     public void registerStyles(StyledDocument document) {
 
         MutableAttributeSet attr;
+        Style defaultStyle;
 
-        //deafult text
+        //deafult style
         attr = new SimpleAttributeSet();
         StyleConstants.setBold(attr, false);
         StyleConstants.setItalic(attr, false);
         StyleConstants.setFontSize(attr,12);
-        registerStyle(document, "default", attr);
-
+        defaultStyle = registerStyle(document, "deafult", attr);
+        document.setLogicalStyle(0, defaultStyle);
+        
         //title style
         attr = new SimpleAttributeSet();
         StyleConstants.setBold(attr, true);
         StyleConstants.setItalic(attr, false);
         StyleConstants.setFontSize(attr,16);
         registerStyle(document, "title", attr);
-
+        
     }
 
-    private void registerStyle(StyledDocument document, String styleName, AttributeSet attributes) {
+    private Style registerStyle(StyledDocument document, String styleName, AttributeSet attributes) {
         Style style = document.addStyle(styleName, null);
         style.addAttributes(attributes);
 
         styleNames.add(styleName);
+        return style;
+        
     }
 
 

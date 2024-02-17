@@ -24,8 +24,10 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
-import javax.swing.text.rtf.RTFEditorKit;
+import javax.swing.text.StyledEditorKit;
 import javax.swing.undo.UndoManager;
+
+import it.spaghettisource.exp.editor.xml.XmlEditorKit;
 
 public class Editor extends JPanel {
 
@@ -33,7 +35,7 @@ public class Editor extends JPanel {
 	protected JTextPane textPane;
 	protected StyleContext styleContext;
 	protected DefaultStyledDocument document;
-	protected RTFEditorKit editorKit;
+	protected StyledEditorKit editorKit;
 	protected EditorBarTool toolBar;
 	protected UndoManager undoManager;
 	protected FindDialog findDialog;
@@ -50,7 +52,8 @@ public class Editor extends JPanel {
 
 		//create the editor, Make sure we install the editor kit before creating the initial document.
 		textPane = new JTextPane();
-		editorKit = new RTFEditorKit();
+		//editorKit = new RTFEditorKit();
+		editorKit = new XmlEditorKit();
 		textPane.setEditorKit(editorKit);
 
 		//add the document
@@ -82,6 +85,7 @@ public class Editor extends JPanel {
 		
 		orthoManager = new OrthoManager(this);
 		orthoManager.registerEditor();
+		
 	}
 
 	public JTextPane getTextPane() {
