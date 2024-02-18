@@ -199,7 +199,14 @@ public class Editor extends JPanel {
 
 	public void setStyle(String styleName) {
 		Style style = document.getStyle(styleName);
-		setAttribute(style, false,false);
+		
+		//i don't want to store the style in the model, just extrapolate the attribute to apply
+		MutableAttributeSet contentAttributes = new SimpleAttributeSet();
+		StyleConstants.setBold(contentAttributes, StyleConstants.isBold(style));
+		StyleConstants.setItalic(contentAttributes, StyleConstants.isItalic(style));
+		StyleConstants.setFontSize(contentAttributes,StyleConstants.getFontSize(style));
+		
+		setAttribute(contentAttributes, false,false);
 		textPane.grabFocus();
 	}
 
