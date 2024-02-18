@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import it.spaghettisource.exp.editor.xml.model.Content;
 import it.spaghettisource.exp.editor.xml.model.ObjectFactory;
 import it.spaghettisource.exp.editor.xml.model.Part;
-import it.spaghettisource.exp.editor.xml.model.PartStyle;
 import it.spaghettisource.exp.editor.xml.model.XmlDocument;
 
 
@@ -31,7 +30,7 @@ import it.spaghettisource.exp.editor.xml.model.XmlDocument;
  */
 public class XmlGenerator {
 
-	static Logger log = LoggerFactory.getLogger(XmlGenerator.class);
+	private static Logger log = LoggerFactory.getLogger(XmlGenerator.class);
 	
 	/* where all the text is going */
 	private OutputStream outputStream;
@@ -49,11 +48,9 @@ public class XmlGenerator {
 		Element root = document.getDefaultRootElement();
 	    int max = root.getElementCount();
 
-		//TODO - log to remove
-		((DefaultStyledDocument)document).dump(System.out);
-	    
-		log.debug("Parse root");
-	    log.debug("numer of elements:"+max);
+	    if(log.isDebugEnabled()) {
+			((DefaultStyledDocument)document).dump(System.out);	    	
+	    }
 	    
 	    for(int idx = 0; idx < max; idx++) {
 	    	builder.writeParagraphElement(xmlDocument, root.getElement(idx));
@@ -65,8 +62,11 @@ public class XmlGenerator {
 			marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			marshaller.marshal(xmlDocument, to);
-			//TODO - log to remove
-			marshaller.marshal(xmlDocument, System.out);
+
+		    if(log.isDebugEnabled()) {
+				marshaller.marshal(xmlDocument, System.out);
+		    }
+			
 		} catch (JAXBException ex) {
 			throw new IOException(ex);
 		}
@@ -80,7 +80,6 @@ public class XmlGenerator {
 	}
 
 	private void writeParagraphElement(XmlDocument xmlDocument, Element element) throws IOException {
-	    log.debug("check paragraph element:"+element);
 		AttributeSet paragraphAttributes = element.getAttributes();
 
 		Part part = new Part();
@@ -90,8 +89,6 @@ public class XmlGenerator {
 		updateParagraphAttribute(part, paragraphAttributes);
 		
 	    int sub_count = element.getElementCount();
-		log.debug("Parse paragraph Elements");
-	    log.debug("numer of elements:"+sub_count);
 	    for(int idx = 0; idx < sub_count; idx ++) {
 	        writeTextElement(part, element.getElement(idx));
 	    }
@@ -100,15 +97,8 @@ public class XmlGenerator {
 
 	private void updateParagraphAttribute(Part part, AttributeSet attr){
 		
-		PartStyle style = new PartStyle();
-		part.setPartStyle(style);
-		
 	    while(attr != null) {
 	        if (attr instanceof Style) {
-	        	style.setName(((Style) attr).getName());
-	    		style.setBold(StyleConstants.isBold(attr));
-	    		style.setItalic(StyleConstants.isItalic(attr));
-	    		style.setSize(StyleConstants.getFontSize(attr));
 	    		
 	        }else {
 	        	
@@ -125,8 +115,6 @@ public class XmlGenerator {
 	
 
 	private void writeTextElement(Part part, Element element) throws IOException {
-	    log.debug("check text element:"+element);
-	    
 		AttributeSet contentAttributes = element.getAttributes();
 		
 		Content content = new Content();

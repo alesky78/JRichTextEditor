@@ -12,18 +12,42 @@
 		<maven.compiler.source>8</maven.compiler.source>
 		<maven.compiler.target>8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jackson-bom>2.14.0</jackson-bom>		
 		<slf4j>2.0.4</slf4j> 	
 	</properties>
 
 
 
 	<dependencies>
+		<!-- jackson dependences -->
 		<dependency>
-			<!-- https://github.com/geniot/jortho -->
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson-bom}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-parameter-names</artifactId>
+			<version>${jackson-bom}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>${jackson-bom}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jdk8</artifactId>
+			<version>${jackson-bom}</version>
+		</dependency>	
+	
+		<!-- https://github.com/geniot/jortho -->
+		<dependency>
 			<groupId>io.github.geniot</groupId>
 			<artifactId>jortho</artifactId>
 			<version>1.1</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>

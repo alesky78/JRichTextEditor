@@ -16,23 +16,12 @@
 
 	<xs:element name="Part">
 		<xs:complexType>		
-			<xs:sequence>
-				<xs:element ref="ref:PartStyle" minOccurs="1"  maxOccurs="1" />			
+			<xs:sequence>			
 				<xs:element ref="ref:Content" minOccurs="1"  maxOccurs="unbounded" />
 			</xs:sequence>
 			<xs:attribute name="Alignment" type="xs:string" use="required" />		
 		</xs:complexType>
 	</xs:element>
-
-	<xs:element name="PartStyle">
-		<xs:complexType>
-			<xs:attribute name="name" type="xs:string" use="required" />
-			<xs:attribute name="bold" type="xs:boolean" use="required" />
-			<xs:attribute name="italic" type="xs:boolean" use="required" />			
-			<xs:attribute name="size" type="xs:int" use="required" />			
-		</xs:complexType>
-	</xs:element>
-	
 	
 	<xs:element name="Content">
 		<xs:complexType>

@@ -13,7 +13,7 @@ public class OrthoManager {
 		if(!initialized) {
 			initialized = true;
 			SpellChecker.setUserDictionaryProvider(new FileUserDictionary());
-			//SpellChecker.setUserDictionaryProvider(new FileUserDictionary("C:\\Users\\Alessandro\\Desktop\\dizionario"));	// how to add the dictionary in a specific folder!
+			//SpellChecker.setUserDictionaryProvider(new FileUserDictionary("C:\\Users\\Alessandro\\Desktop\\dizionario"));  //TODO - aggiungi il dizionario in una cartella perstabilita in modo che utente no deve ricrearlo da 0 sempre 
 			SpellChecker.registerDictionaries(null, null );			
 		}
 	}

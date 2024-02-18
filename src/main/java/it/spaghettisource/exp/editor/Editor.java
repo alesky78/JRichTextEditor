@@ -27,7 +27,7 @@ import javax.swing.text.StyledDocument;
 import javax.swing.text.StyledEditorKit;
 import javax.swing.undo.UndoManager;
 
-import it.spaghettisource.exp.editor.xml.XmlEditorKit;
+import it.spaghettisource.exp.editor.json.JsonEditorKit;
 
 public class Editor extends JPanel {
 
@@ -54,23 +54,22 @@ public class Editor extends JPanel {
 		//create the editor, Make sure we install the editor kit before creating the initial document.
 		textPane = new JTextPane();
 		//editorKit = new RTFEditorKit();
-		editorKit = new XmlEditorKit();
-		textPane.setEditorKit(editorKit);
-
-		//add the document
-		styleContext = new StyleContext();
-		document = new DefaultStyledDocument(styleContext);
-		textPane = new JTextPane(document);
-		textPane.addCaretListener(new CaretEventListener());
+		//editorKit = new XmlEditorKit();
+		editorKit = new JsonEditorKit();
 		
-		//register the styles
-		styleManger= new StyleManager();
-		styleManger.registerStyles(document);
-
-		//create the undo manager
+		textPane.setEditorKit(editorKit);
+		
+		//Prepare the objets to config the document
+		styleContext = new StyleContext();
 		undoManager = new UndoManager();
 		undoableEditEventListener = new UndoableEditEventListener();
-		document.addUndoableEditListener(undoableEditEventListener);
+		styleManger= new StyleManager();
+
+		builldNewDocument();
+		
+		//set the document in the text pane
+		textPane = new JTextPane(document);
+		textPane.addCaretListener(new CaretEventListener());
 		
 		//create the UI
 		JScrollPane editorSCrScrollPane = new JScrollPane(textPane);
@@ -88,6 +87,26 @@ public class Editor extends JPanel {
 		
 	}
 
+	private void builldNewDocument() {
+		document = new DefaultStyledDocument(styleContext);		
+		document.addUndoableEditListener(undoableEditEventListener);
+		styleManger.registerStyles(document);
+		styleManger.applyDefaultStyle(document);
+	}
+	
+	private void replaceTextPaneDocument() {
+		//clean old model before to replace it
+		document.removeUndoableEditListener(undoableEditEventListener);
+		undoManager.discardAllEdits();
+
+		builldNewDocument();
+		textPane.setDocument(document);
+	}	
+	
+	public String[] findManagerStylesNames() {
+		return styleManger.getStyleNames().toArray(new String[0]);
+	}
+
 	public JTextPane getTextPane() {
 		return textPane;
 	}
@@ -96,22 +115,6 @@ public class Editor extends JPanel {
 		return document;
 	}
 	
-	private void replaceTextPaneDocument() {
-		//clean old model
-		document.removeUndoableEditListener(undoableEditEventListener);
-		undoManager.discardAllEdits();
-
-		//create a new model
-		document = new DefaultStyledDocument(styleContext);
-		document.addUndoableEditListener(undoableEditEventListener);
-		styleManger.registerStyles(document);
-		textPane.setDocument(document);
-	}	
-
-	public String[] findManagerStylesNames() {
-		return styleManger.getStyleNames().toArray(new String[0]);
-	}
-
 	public void setSelection(int xStart, int xFinish, boolean moveUp) {
 		if (moveUp) {
 			textPane.setCaretPosition(xFinish);
@@ -130,7 +133,6 @@ public class Editor extends JPanel {
 			editorKit.read(in, document, 0);
 		}
 	}
-
 	
 	public void saveToFile(File selectedFile)  throws Exception{
 		try(OutputStream out = new FileOutputStream(selectedFile)){

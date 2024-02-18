@@ -68,10 +68,6 @@ public class XmlReader {
 		
 	}
 
-	//target.addStyle(styleName, basis);
-    //target.insertString(target.getLength(),text,currentTextAttributes());
-	//target.setParagraphAttributes(pgfEndPosition, 1, pgfAttributes, true);
-
 	
 	private void parsePart(Part part) throws BadLocationException {
 		
@@ -88,7 +84,7 @@ public class XmlReader {
 			//add paragraph attributes:
 			MutableAttributeSet paragraphAttributes = new SimpleAttributeSet();
 			StyleConstants.setAlignment(paragraphAttributes, new Integer(part.getAlignment()));
-			target.setParagraphAttributes(startPoint, endPoint-startPoint, paragraphAttributes, true);
+			target.setParagraphAttributes(startPoint, endPoint-startPoint, paragraphAttributes, false);
 		}
     	
 	}

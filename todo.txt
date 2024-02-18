@@ -1,0 +1,39 @@
+#######################################
+#StyleManager
+#######################################
+1 - titolo degli stili da i18n
+2 - dimensione degli stili dalla properties del file
+
+#######################################
+#EditorKit
+#######################################
+manca il log mettilo bene
+
+#############
+#OrthoManager
+#############
+1 - il dizonario deve essere salvato in una nuova cartella di config di CertGen nel AppData
+
+#######################################
+#JORTO: importo una versione su github#
+#######################################
+attualmente importo questa versione https://github.com/geniot/jortho
+devo clonarla sui repositori rpivanti di oniusoft
+
+##############################################
+#JSON: creare un editor kit per json e non xml
+##############################################
+
+###################
+#Gestione Variabili
+###################
+- creare un pannello per l'introduzione delle variabili
+- creare il servizio per la sostituzione delle variabili --> c'e' un test gia fatto fichissimo
+- alle variabili si applica una sintassi ex #{variabile}, se utilizzata evidenziare in rosso la parola, ecco un progetto interessante che gia lo fa: https://github.com/stark9000/java-Syntax-Highlight
+
+##############################################
+#PDF: creare un convertitore pdf di test
+##############################################
+
+
+
