@@ -9,11 +9,17 @@
 	<version>1.0-SNAPSHOT</version>
 
 	<properties>
+		<!-- JVM parameters -->
 		<maven.compiler.source>8</maven.compiler.source>
 		<maven.compiler.target>8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<!-- dependences -->
 		<jackson-bom>2.14.0</jackson-bom>		
-		<slf4j>2.0.4</slf4j> 	
+		<slf4j>2.0.4</slf4j>
+		
+		<!-- pulugin version -->
+		<jaxb2-maven-plugin>2.5.0</jaxb2-maven-plugin>
 	</properties>
 
 
@@ -101,6 +107,26 @@
 				</executions>
 			</plugin>
 		</plugins>
+	
+	
+		<pluginManagement>
+			<plugins>
+			
+				<!-- 
+				JAXB javax.xml.bind:jaxb-api is no longer maintained after Jakarta create the new specification 3.x https://jakarta.ee/specifications/xml-binding/3.0/
+	            In the 2.x line, 2.3.1 is the latest version that is supported in the JDK8.
+	            versioning of the org.codehaus.mojo jaxb2-maven-plugin align wiht the jakarta specification:
+				2.5.0 -> is the last version that rely on the package javax.xml.bind present in the JDK8     
+	            3.1.0 -> create the classis with the Jakarta specification 3.x, in the JDK8 the new package is not present and this required that we define the new dependence jakarta.xml.bind jakarta.xml.bind-api 3.0.1 so we support JDK 9
+				 -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>jaxb2-maven-plugin</artifactId>
+					<version>${jaxb2-maven-plugin}</version>
+				</plugin>	
+			</plugins>
+		</pluginManagement>
+		
 	</build>
 
 </project>
